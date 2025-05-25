@@ -3,11 +3,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { OpenAI } from "openai";
 import bodyParser from "body-parser";
+import path from "path";
 
 dotenv.config();
 
 console.log("Chave da OpenAI:", process.env.OPENAI_API_KEY ? "OK" : "NÃO DEFINIDA");
-
 
 const app = express();
 app.use(cors());
@@ -50,6 +50,11 @@ app.post("/api/plan", async (req, res) => {
      res.status(500).json({error: "erro ao gerar plano de aula"});   
     }
 });
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html');
+})
 
 app.listen(process.env.PORT, () => {
     console.log(`servidor rodando em http://localhost:${process.env.PORT}`);
