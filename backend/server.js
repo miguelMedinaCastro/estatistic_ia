@@ -3,15 +3,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { OpenAI } from "openai";
 import bodyParser from "body-parser";
-import path from "path";
-import { fileURLToPath } from "url";
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 console.log("Chave da OpenAI:", process.env.OPENAI_API_KEY ? "OK" : "NÃO DEFINIDA");
+
 
 const app = express();
 app.use(cors());
@@ -37,7 +33,7 @@ app.post("/api/plan", async (req, res) => {
             messages: [
                 {
                     role: "system",
-                    content: "Você é um gerador de planos de aula baseado na BNCC com foco em dados estatísticos."
+                    content: "Você é um gerador de planos de aula baseado na BNCC com foco em dados estatísticos. Serão informados o número de alunos,o grau de ensino da turma(ensino fundamental ou ensino médio) e o tema da aula"
                 },
                 {
                     role: "user",
@@ -54,11 +50,6 @@ app.post("/api/plan", async (req, res) => {
      res.status(500).json({error: "erro ao gerar plano de aula"});   
     }
 });
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
-})
 
 app.listen(process.env.PORT, () => {
     console.log(`servidor rodando em http://localhost:${process.env.PORT}`);
