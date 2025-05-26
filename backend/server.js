@@ -8,6 +8,7 @@ dotenv.config();
 
 console.log("Chave da OpenAI:", process.env.OPENAI_API_KEY ? "OK" : "NÃO DEFINIDA");
 
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(cors());
@@ -51,6 +52,6 @@ app.post("/api/plan", async (req, res) => {
     }
 });
 
-app.listen(process.env.PORT, () => {
-    console.log(`servidor rodando em http://localhost:${process.env.PORT}`);
-})
+app.listen(process.env.PORT, '0.0.0.0', () => {
+    console.log(`Servidor rodando em http://0.0.0.0:${process.env.PORT}`);
+});

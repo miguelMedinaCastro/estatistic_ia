@@ -171,7 +171,7 @@ const CreateClass = () => {
     setResult(null);
 
     try {
-      const res = await fetch("http://localhost:3001/api/plan", {
+      const res = await fetch("https://0d5d-2804-389-f2a1-61b7-fc5-be92-9699-d1c2.ngrok-free.app/api/plan", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
